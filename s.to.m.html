@@ -1,0 +1,305 @@
+<html style="font-family: Helvetica;">
+<title></title>
+<style>
+
+body { 
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "nav article ads"
+    "footer footer footer";
+  grid-template-rows: 80px 1fr 70px;  
+  /*Las columnas nav y div*/
+  grid-template-columns: 20% 1fr 15%;
+  /*esquinas derecha y isquierda*/
+    grid-row-gap: 5px;
+  grid-column-gap: 5px;
+  /*like a margin botton*/
+  height: 100vh;
+  /*esquinas de la pagina*/
+  margin: 1;
+  }  
+  
+header, footer, article, nav, div {
+  padding: 1.3em;
+  background: gold;
+  }
+
+#pageHeader {
+  grid-area: header;
+  text-align: center;
+  font-style:oblique;
+  background-color: #b39700
+
+  }
+#pageFooter {
+  grid-area: footer;
+  text-align: left;
+  background-color: #b39700
+  }
+#mainArticle { 
+  grid-area: article; 
+  text-align: center;   
+  border-radius: 10px;
+  }
+#mainNav { 
+  grid-area: nav; 
+  text-align: center;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-color: #b39700
+
+  }
+#siteAds { 
+  grid-area: ads; 
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  } 
+
+/* Stack the layout on small devices/viewports. */
+@media all and (max-width: 575px) {
+  body { 
+    grid-template-areas: 
+      "header"
+      "article"
+      "ads"
+      "nav"
+      "footer";
+    grid-template-rows: 80px 1fr 70px 1fr 70px;  
+    grid-template-columns: 1fr;
+ }
+}
+</style>
+
+<body>
+  <header id="pageHeader">
+    <h2>Convert Time</h2>
+  </header>
+
+  <article id="mainArticle">
+    <h2>Date converter!</h2>
+    <p>This is just a simple script that will convert the current date to epoch i dont think i have a text wrap lol </p>
+    <p>Enter a date pls: </p>
+    <div id="rcont">
+      <p>Enter a date pls:</p>
+      <input id="input" placeholder="MM/DD/YYYY">
+      <button id="button" onclick="convDays(), convMonths(), convMili(), convHours(), convMinutes(), convSeconds(), convWeeks(), billionDate()">Try it</button>
+      <p id="mili"></p>
+      <p id="seconds"></p>
+      <p id="minutes"></p>
+      <p id="hours"></p>
+      <p id="mili"></p>
+      <p id="days"></p>
+      <p id="weeks"></p>
+      <p id="months"></p>
+      <p id="money"></p>
+      <br>
+      <p id="billion"></p>
+      <p id="sum"></p>
+    </div>
+  </article>
+
+  <nav id="mainNav">Live Time
+      <p>Time for Christmas to come</p>
+      <div id="demo"></div>
+  </nav>
+
+  <div id="siteAds">Other Time</div>
+  <footer id="pageFooter">Project by Guaifait Corporation
+  
+  </footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+  // Set the date we're counting down to
+var countDownDate = new Date("Dec 25, 2017 00:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}, 1000);
+  var $input = document.getElementById("input");
+
+  function convDays() {
+    var convert = $input.value.replace("/", ",")
+    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date(convert);
+    var secondDate = new Date();
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+    var mon = 20 * diffDays;
+    document.getElementById("days").innerHTML = "Days: " + diffDays;
+    document.getElementById("money").innerHTML = "$20 por cada dia: " + "$" + mon;
+  }
+
+  function convMonths() {
+    var convert = $input.value.replace("/", ",")
+    var oneDay = 30 * 24 * 60 * 60 * 1000; // months*hours*minutes*seconds*milliseconds
+    var firstDate = new Date(convert);
+    var secondDate = new Date();
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+    document.getElementById("months").innerHTML = "Months: " + diffDays;
+  }
+
+  function convMili() {
+    setInterval(function updateTime() {
+      var convert = $input.value.replace("/", ",")
+      var oneDay = 30 * 24 * 60 * 60 * 1000; // months*hours*minutes*seconds*milliseconds
+      var firstDate = new Date(convert);
+      var secondDate = new Date();
+
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())));
+      document.getElementById("mili").innerHTML = "milliseconds: " + diffDays;
+    }, 0);
+  }
+
+  function convSeconds() {
+    setInterval(function updateTime() {
+      var convert = $input.value.replace("/", ",")
+      var oneDay = 1000; // months*hours*minutes*seconds*milliseconds
+      var firstDate = new Date(convert);
+      var secondDate = new Date();
+
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+      document.getElementById("seconds").innerHTML = "Seconds: " + diffDays;
+    }, 0);
+  }
+
+  function convMinutes() {
+    setInterval(function updateTime() {
+      var convert = $input.value.replace("/", ",")
+      var oneDay = 60 * 1000; // months*hours*minutes*seconds*milliseconds
+      var firstDate = new Date(convert);
+      var secondDate = new Date();
+
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+      document.getElementById("minutes").innerHTML = "Minutes: " + diffDays;
+    }, 50);
+  }
+
+  function convHours() {
+    setInterval(function updateTime() {
+      var convert = $input.value.replace("/", ",")
+      var oneDay = 60 * 60 * 1000; // months*hours*minutes*seconds*milliseconds
+      var firstDate = new Date(convert);
+      var secondDate = new Date();
+
+      var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+      document.getElementById("hours").innerHTML = "Hours: " + diffDays;
+    }, 50);
+  }
+
+  function convWeeks() {
+    var convert = $input.value.replace("/", ",")
+    var oneDay = 7 * 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date(convert);
+    var secondDate = new Date();
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+    document.getElementById("weeks").innerHTML = "Weeks: " + diffDays;
+  }
+
+  function billionDate() {
+    var convert = $input.value.replace("/", ",")
+    var firstDate = new Date(convert);
+    var bill = firstDate.getTime() + 1000000000000;
+    var date = new Date(bill); //converts the int bill to a date
+    var day;
+    var month;
+
+    //Converts the numbert in the month to a readable string :D
+    switch (date.getMonth()) {
+      case 0:
+        month = "January";
+        break;
+      case 1:
+        month = "February";
+        break;
+      case 2:
+        month = "March";
+        break;
+      case 3:
+        month = "April";
+        break;
+      case 4:
+        month = "May";
+        break;
+      case 5:
+        month = "June";
+        break;
+      case 6:
+        month = "July";
+        break;
+      case 7:
+        month = "August"
+        break;
+      case 8:
+        month = "September"
+        break;
+      case 9:
+        month = "October"
+        break;
+      case 10:
+        month = "November"
+        break;
+      case 11:
+        month = "December"
+        break;
+    }
+
+    //Another switch function
+    switch (date.getDay()) {
+      case 0:
+        day = "Sunday";
+        break;
+      case 1:
+        day = "Monday";
+        break;
+      case 2:
+        day = "Tuesday";
+        break;
+      case 3:
+        day = "Wednesday";
+        break;
+      case 4:
+        day = "Thursday";
+        break;
+      case 5:
+        day = "Friday";
+        break;
+      case 6:
+        day = "Saturday";
+        break;
+    }
+
+    document.getElementById("billion").innerHTML = "Fecha donde cumples 1 billon de segundos vivido en este mundo:"
+    document.getElementById("sum").innerHTML = day + ", " + month + " " + date.getDate() + ", " + date.getFullYear() + " at " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  }
+</script>
+
+</body>
+ </html>   
